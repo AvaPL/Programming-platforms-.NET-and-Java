@@ -1,0 +1,12 @@
+﻿@model DiseaseTracker.Models.COVID19Statistics
+
+@{
+    ViewData["Title"] = "COVID-19 Statistics";
+}
+
+<div class="text-center">
+    <h1 class="display-4">COVID-19 Statistics</h1>
+    <p>Confirmed: @Model.Latest.Confirmed</p>
+    <p>Deaths: @Model.Latest.Deaths</p>
+    <p>Recovered: @Model.Latest.Recovered</p>
+</div>
