@@ -1,0 +1,42 @@
+﻿@model DiseaseTracker.Models.Visitor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Visitor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastVisit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastVisit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalVisits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalVisits)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
