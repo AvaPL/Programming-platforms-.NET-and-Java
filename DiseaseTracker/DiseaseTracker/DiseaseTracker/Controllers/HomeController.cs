@@ -12,6 +12,7 @@ namespace DiseaseTracker.Controllers
     public class HomeController : Controller
     {
         private TrackerContext db = new TrackerContext();
+        private StatisticsViewModel viewModel = new StatisticsViewModel();
 
         public ActionResult Index()
         {
@@ -33,27 +34,37 @@ namespace DiseaseTracker.Controllers
         public ActionResult COVID19Statistics()
         {
             COVID19Statistics statistics = FetchCOVID19Statistics();
+            viewModel.Statistics = statistics;
+            UpdateVisitor();
+            return View(viewModel);
+        }
 
+        private void UpdateVisitor()
+        {
             string ip = Server.HtmlEncode(Request.UserHostAddress);
             Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
-            DateTime lastVisit;
-            int totalVisits;
             if (visitor == null)
-            {
-                visitor = new Visitor(ip);
-                lastVisit = visitor.LastVisit;
-                totalVisits = visitor.TotalVisits;
-                db.Visitors.Add(visitor);
-            }
+                AddNewVisitor(ip);
             else
-            {
-                lastVisit = visitor.LastVisit;
-                visitor.UpdateVisitor();
-                totalVisits = visitor.TotalVisits;
-                db.Entry(visitor).State = EntityState.Modified;
-            }
+                EditExistingVisitor(visitor);
+        }
+
+        private void EditExistingVisitor(Visitor visitor)
+        {
+            viewModel.LastVisit = visitor.LastVisit;
+            visitor.UpdateVisitor();
+            viewModel.TotalVisits = visitor.TotalVisits;
+            db.Entry(visitor).State = EntityState.Modified;
             db.SaveChanges();
-            return View(new StatisticsViewModel(statistics, lastVisit, totalVisits));
+        }
+
+        private void AddNewVisitor(string ip)
+        {
+            Visitor visitor = new Visitor(ip);
+            viewModel.LastVisit = visitor.LastVisit;
+            viewModel.TotalVisits = visitor.TotalVisits;
+            db.Visitors.Add(visitor);
+            db.SaveChanges();
         }
 
         public COVID19Statistics FetchCOVID19Statistics()
