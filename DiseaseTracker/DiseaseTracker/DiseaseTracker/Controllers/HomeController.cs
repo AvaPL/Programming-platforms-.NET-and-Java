@@ -31,24 +31,18 @@ namespace DiseaseTracker.Controllers
 
         public ActionResult COVID19Statistics()
         {
-            COVID19Statistics statistics = FetchCOVID19Statistics().Result;
+            COVID19Statistics statistics = FetchCOVID19Statistics();
             return View(statistics);
         }
 
-        public async Task<COVID19Statistics> FetchCOVID19Statistics()
+        public COVID19Statistics FetchCOVID19Statistics()
         {
-            using HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/");
-            Task<HttpResponseMessage> responseTask = client.GetAsync("latest");
-            responseTask.Wait();
-            HttpResponseMessage result = responseTask.Result;
-            if (result.IsSuccessStatusCode)
-            {
-                string json = await result.Content.ReadAsStringAsync();
-                return JObject.Parse(json)["latest"].ToObject<COVID19Statistics>();
-            }
-
-            return null;
+            using HttpClient client = new HttpClient
+                {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
+            HttpResponseMessage response = client.GetAsync("latest").Result;
+            if (!response.IsSuccessStatusCode) return null;
+            string json = response.Content.ReadAsStringAsync().Result;
+            return JObject.Parse(json)["latest"].ToObject<COVID19Statistics>();
         }
     }
 }
