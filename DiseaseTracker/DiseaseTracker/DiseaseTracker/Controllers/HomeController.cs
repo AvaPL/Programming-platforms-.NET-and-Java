@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DiseaseTracker.Models;
+using Newtonsoft.Json.Linq;
 
 namespace DiseaseTracker.Controllers
 {
@@ -30,13 +31,12 @@ namespace DiseaseTracker.Controllers
 
         public ActionResult COVID19Statistics()
         {
-            COVID19Statistics statistics = FetchCOVID19Statistics();
+            COVID19Statistics statistics = FetchCOVID19Statistics().Result;
             return View(statistics);
         }
 
-        public COVID19Statistics FetchCOVID19Statistics()
+        public async Task<COVID19Statistics> FetchCOVID19Statistics()
         {
-            COVID19Statistics statistics = new COVID19Statistics();
             using HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/");
             Task<HttpResponseMessage> responseTask = client.GetAsync("latest");
@@ -44,12 +44,11 @@ namespace DiseaseTracker.Controllers
             HttpResponseMessage result = responseTask.Result;
             if (result.IsSuccessStatusCode)
             {
-                Task<COVID19Statistics> readTask = result.Content.ReadAsAsync<COVID19Statistics>();
-                readTask.Wait();
-                statistics = readTask.Result;
+                string json = await result.Content.ReadAsStringAsync();
+                return JObject.Parse(json)["latest"].ToObject<COVID19Statistics>();
             }
 
-            return statistics;
+            return null;
         }
     }
 }
