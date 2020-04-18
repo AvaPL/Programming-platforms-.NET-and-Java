@@ -36,16 +36,24 @@ namespace DiseaseTracker.Controllers
 
             string ip = Server.HtmlEncode(Request.UserHostAddress);
             Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
+            DateTime lastVisit;
+            int totalVisits;
             if (visitor == null)
-                db.Visitors.Add(new Visitor(ip));
+            {
+                visitor = new Visitor(ip);
+                lastVisit = visitor.LastVisit;
+                totalVisits = visitor.TotalVisits;
+                db.Visitors.Add(visitor);
+            }
             else
             {
+                lastVisit = visitor.LastVisit;
                 visitor.UpdateVisitor();
+                totalVisits = visitor.TotalVisits;
                 db.Entry(visitor).State = EntityState.Modified;
             }
-
             db.SaveChanges();
-            return View(statistics);
+            return View(new StatisticsViewModel(statistics, lastVisit, totalVisits));
         }
 
         public COVID19Statistics FetchCOVID19Statistics()
