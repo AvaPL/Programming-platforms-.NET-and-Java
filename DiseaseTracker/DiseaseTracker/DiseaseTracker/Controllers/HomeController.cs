@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using DiseaseTracker.DAL;
 using DiseaseTracker.Models;
 using Newtonsoft.Json.Linq;
 
@@ -12,6 +11,8 @@ namespace DiseaseTracker.Controllers
 {
     public class HomeController : Controller
     {
+        private TrackerContext db = new TrackerContext();
+
         public ActionResult Index()
         {
             return View();
@@ -32,6 +33,18 @@ namespace DiseaseTracker.Controllers
         public ActionResult COVID19Statistics()
         {
             COVID19Statistics statistics = FetchCOVID19Statistics();
+
+            string ip = Server.HtmlEncode(Request.UserHostAddress);
+            Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
+            if (visitor == null)
+                db.Visitors.Add(new Visitor(ip));
+            else
+            {
+                visitor.UpdateVisitor();
+                db.Entry(visitor).State = EntityState.Modified;
+            }
+
+            db.SaveChanges();
             return View(statistics);
         }
 
