@@ -2,17 +2,17 @@
 
 namespace DiseaseTracker.Models
 {
-    public class StatisticsViewModel
+    public class HomeViewModel
     {
         public DateTime LastVisit { get; set; }
         public int TotalVisits { get; set; }
         public COVID19Statistics Statistics { get; set; }
 
-        public StatisticsViewModel()
+        public HomeViewModel()
         {
         }
 
-        public StatisticsViewModel(COVID19Statistics statistics, DateTime lastVisit, int totalVisits)
+        public HomeViewModel(COVID19Statistics statistics, DateTime lastVisit, int totalVisits)
         {
             Statistics = statistics;
             LastVisit = lastVisit;

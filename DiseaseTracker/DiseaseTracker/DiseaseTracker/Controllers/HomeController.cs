@@ -13,7 +13,7 @@ namespace DiseaseTracker.Controllers
     public class HomeController : Controller
     {
         private TrackerContext db = new TrackerContext();
-        private StatisticsViewModel viewModel = new StatisticsViewModel();
+        private HomeViewModel viewModel = new HomeViewModel();
        
         public async Task<ActionResult> Index()
         {

@@ -1,0 +1,17 @@
+﻿@model List<DiseaseTracker.Models.COVID19Location>
+
+@{
+    ViewData["Title"] = "COVID-19 Locations";
+}
+
+<div class="text-center">
+    <h1 class="display-4">COVID-19 Locations</h1>
+    @foreach (var location in Model)
+    {
+        <p>Country: @location.Country</p>
+        <p>Confirmed: @location.Latest.Confirmed</p>
+        <p>Deaths: @location.Latest.Deaths</p>
+        <p>Recovered: @location.Latest.Recovered</p>
+        <p>=====================================</p>
+    }
+</div>
