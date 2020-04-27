@@ -8,7 +8,7 @@
     <div class="col-4">
         <div class="locations-list scrollbar">
             <div class="list-group" id="list-tab" role="tablist">
-                @for (int i =0; i<Model.Count; i++)
+                @for (int i = 0; i < Model.Count; i++)
                 {
                     string active = i == 0 ? "active" : "";
                     <a class="list-group-item list-group-item-action list-group-item-secondary @active" id=@Model[i].Country"-list" data-toggle="list" href="#@Model[i].Country" role="tab" aria-controls="profile">@Model[i].Country</a>
@@ -16,18 +16,21 @@
             </div>
         </div>
     </div>
+
     <div class="col-8">
-        <div class="tab-content" id="nav-tabContent">
-            @for (int i =0; i<Model.Count; i++)
-            {
-                string active = i == 0 ? "show active" : "";
-                <div class="tab-pane fade @active" id=@Model[i].Country role="tabpanel" aria-labelledby=@Model[i].Country"-list">
-                    <p>Country: @Model[i].Country</p>
-                    <p>Confirmed: @Model[i].Latest.Confirmed</p>
-                    <p>Deaths: @Model[i].Latest.Deaths</p>
-                    <p>Recovered: @Model[i].Latest.Recovered</p>
-                </div>
-            }
+        <div class="locations">
+            <div class="tab-content locations-center" id="nav-tabContent">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    string active = i == 0 ? "show active" : "";
+                    <div class="tab-pane fade @active" id=@Model[i].Country role="tabpanel" aria-labelledby=@Model[i].Country"-list">
+                        <p>Country: @Model[i].Country</p>
+                        <p>Confirmed: @Model[i].Latest.Confirmed</p>
+                        <p>Deaths: @Model[i].Latest.Deaths</p>
+                        <p>Recovered: @Model[i].Latest.Recovered</p>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>

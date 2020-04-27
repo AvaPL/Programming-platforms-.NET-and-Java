@@ -1,3 +1,16 @@
+.locations {
+    height: calc(100vh - 160px);
+    position: relative;
+    text-align: center;
+}
+
+.locations-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .locations-list {
     height: calc(100vh - 160px);
     overflow: auto;
