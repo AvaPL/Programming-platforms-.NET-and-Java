@@ -328,6 +328,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Styles\Home.css" />
     <Content Include="Styles\Locations.css" />
+    <Content Include="Styles\Text.css" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Web.config" />

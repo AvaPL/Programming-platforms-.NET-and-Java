@@ -11,7 +11,8 @@
                 @for (int i = 0; i < Model.Count; i++)
                 {
                     string active = i == 0 ? "active" : "";
-                    <a class="list-group-item list-group-item-action list-group-item-secondary @active" id=@Model[i].Country"-list" data-toggle="list" href="#@Model[i].Country" role="tab" aria-controls="profile">@Model[i].Country</a>
+                    string country = Model[i].Country.Replace(" ", "");
+                    <a class="list-group-item list-group-item-action list-group-item-secondary @active" id=@country"-list" data-toggle="list" href="#@country" role="tab" aria-controls="profile">@Model[i].Country</a>
                 }
             </div>
         </div>
@@ -23,11 +24,12 @@
                 @for (int i = 0; i < Model.Count; i++)
                 {
                     string active = i == 0 ? "show active" : "";
-                    <div class="tab-pane fade @active" id=@Model[i].Country role="tabpanel" aria-labelledby=@Model[i].Country"-list">
-                        <p>Country: @Model[i].Country</p>
-                        <p>Confirmed: @Model[i].Latest.Confirmed</p>
-                        <p>Deaths: @Model[i].Latest.Deaths</p>
-                        <p>Recovered: @Model[i].Latest.Recovered</p>
+                    string country = Model[i].Country.Replace(" ", "");
+                    <div class="tab-pane fade @active" id=@country role="tabpanel" aria-labelledby=@country"-list">
+                        <p class="text">Country: @Model[i].Country</p>
+                        <p class="text">Confirmed: @Model[i].Latest.Confirmed</p>
+                        <p class="text">Deaths: @Model[i].Latest.Deaths</p>
+                        <p class="text">Recovered: @Model[i].Latest.Recovered</p>
                     </div>
                 }
             </div>
