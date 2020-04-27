@@ -6,6 +6,7 @@ namespace DiseaseTracker.Models
     {
         public DateTime LastVisit { get; set; }
         public int TotalVisits { get; set; }
+        public long ConfirmedIncrease { get; set; }
         public COVID19Statistics Statistics { get; set; }
 
         public HomeViewModel()

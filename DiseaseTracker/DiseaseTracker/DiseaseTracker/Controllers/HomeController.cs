@@ -14,38 +14,45 @@ namespace DiseaseTracker.Controllers
     {
         private TrackerContext db = new TrackerContext();
         private HomeViewModel viewModel = new HomeViewModel();
-       
+
         public async Task<ActionResult> Index()
         {
-            viewModel.Statistics = await FetchCOVID19StatisticsAsync();
-            UpdateVisitor();
+            COVID19Statistics statistics = await FetchCOVID19StatisticsAsync();
+            if (statistics != null)
+            {
+                viewModel.Statistics = statistics;
+                UpdateVisitor(statistics.Confirmed);
+            }
+
             return View(viewModel);
         }
 
-        private void UpdateVisitor()
+        private void UpdateVisitor(long confirmed)
         {
             string ip = Server.HtmlEncode(Request.UserHostAddress);
             Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
             if (visitor == null)
-                AddNewVisitor(ip);
+                AddNewVisitor(ip, confirmed);
             else
-                EditExistingVisitor(visitor);
+                EditExistingVisitor(visitor, confirmed);
         }
 
-        private void EditExistingVisitor(Visitor visitor)
+        private void EditExistingVisitor(Visitor visitor, long confirmed)
         {
             viewModel.LastVisit = visitor.LastVisit;
-            visitor.UpdateVisitor();
+            viewModel.ConfirmedIncrease = confirmed - visitor.LastConfirmed;
+            visitor.UpdateVisitor(confirmed);
             viewModel.TotalVisits = visitor.TotalVisits;
             db.Entry(visitor).State = EntityState.Modified;
             db.SaveChanges();
         }
 
-        private void AddNewVisitor(string ip)
+        private void AddNewVisitor(string ip, long confirmed)
         {
-            Visitor visitor = new Visitor(ip);
+            Visitor visitor = new Visitor(ip, confirmed);
             viewModel.LastVisit = visitor.LastVisit;
             viewModel.TotalVisits = visitor.TotalVisits;
+            viewModel.ConfirmedIncrease = 0;
             db.Visitors.Add(visitor);
             db.SaveChanges();
         }

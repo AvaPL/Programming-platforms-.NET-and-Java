@@ -136,6 +136,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004041134523_InitialCreate.cs" />
+    <Compile Include="Migrations\202004041134523_InitialCreate.designer.cs">
+      <DependentUpon>202004041134523_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004271343333_AddLastConfirmed.cs" />
+    <Compile Include="Migrations\202004271343333_AddLastConfirmed.designer.cs">
+      <DependentUpon>202004271343333_AddLastConfirmed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\COVID19Location.cs" />
     <Compile Include="Models\COVID19Statistics.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
@@ -193,6 +202,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004041134523_InitialCreate.resx">
+      <DependentUpon>202004041134523_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271343333_AddLastConfirmed.resx">
+      <DependentUpon>202004271343333_AddLastConfirmed.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
