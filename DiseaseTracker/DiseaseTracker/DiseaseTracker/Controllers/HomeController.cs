@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using DiseaseTracker.DAL;
 using DiseaseTracker.Models;
@@ -12,68 +13,58 @@ namespace DiseaseTracker.Controllers
     public class HomeController : Controller
     {
         private TrackerContext db = new TrackerContext();
-        private StatisticsViewModel viewModel = new StatisticsViewModel();
+        private HomeViewModel viewModel = new HomeViewModel();
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-            return View();
-        }
-
-        public ActionResult COVID19Statistics()
-        {
-            COVID19Statistics statistics = FetchCOVID19Statistics();
-            viewModel.Statistics = statistics;
-            UpdateVisitor();
+            COVID19Statistics statistics = await FetchCOVID19StatisticsAsync();
+            viewModel.Statistics = statistics ?? new COVID19Statistics();
+            UpdateVisitor(statistics);
             return View(viewModel);
         }
 
-        private void UpdateVisitor()
+        private void UpdateVisitor(COVID19Statistics statistics)
         {
             string ip = Server.HtmlEncode(Request.UserHostAddress);
             Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
             if (visitor == null)
-                AddNewVisitor(ip);
+                AddNewVisitor(ip, statistics);
             else
-                EditExistingVisitor(visitor);
+                EditExistingVisitor(visitor, statistics);
         }
 
-        private void EditExistingVisitor(Visitor visitor)
+        private void EditExistingVisitor(Visitor visitor, COVID19Statistics statistics)
         {
             viewModel.LastVisit = visitor.LastVisit;
-            visitor.UpdateVisitor();
+            if (statistics != null)
+            {
+                viewModel.ConfirmedIncrease = statistics.Confirmed - visitor.LastConfirmed;
+                visitor.UpdateVisitor(statistics.Confirmed);
+            }
+
             viewModel.TotalVisits = visitor.TotalVisits;
             db.Entry(visitor).State = EntityState.Modified;
             db.SaveChanges();
         }
 
-        private void AddNewVisitor(string ip)
+        private void AddNewVisitor(string ip, COVID19Statistics statistics)
         {
-            Visitor visitor = new Visitor(ip);
+            if (statistics == null) return;
+            Visitor visitor = new Visitor(ip, statistics.Confirmed);
             viewModel.LastVisit = visitor.LastVisit;
             viewModel.TotalVisits = visitor.TotalVisits;
+            viewModel.ConfirmedIncrease = 0;
             db.Visitors.Add(visitor);
             db.SaveChanges();
         }
 
-        public COVID19Statistics FetchCOVID19Statistics()
+        public async Task<COVID19Statistics> FetchCOVID19StatisticsAsync()
         {
             using HttpClient client = new HttpClient
                 {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
-            HttpResponseMessage response = client.GetAsync("latest").Result;
+            HttpResponseMessage response = await client.GetAsync("latest");
             if (!response.IsSuccessStatusCode) return null;
-            string json = response.Content.ReadAsStringAsync().Result;
+            string json = await response.Content.ReadAsStringAsync();
             return JObject.Parse(json)["latest"].ToObject<COVID19Statistics>();
         }
     }

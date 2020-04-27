@@ -1,0 +1,22 @@
+.locations-list {
+    height: 100%;
+    width: 20%;
+    overflow: auto;
+}
+
+.scrollbar {
+    overflow-y: scroll;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #eee;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #d7d7d7;
+}

@@ -131,13 +131,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\VisitorsController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="DAL\TrackerContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004041134523_InitialCreate.cs" />
+    <Compile Include="Migrations\202004041134523_InitialCreate.designer.cs">
+      <DependentUpon>202004041134523_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004271343333_AddLastConfirmed.cs" />
+    <Compile Include="Migrations\202004271343333_AddLastConfirmed.designer.cs">
+      <DependentUpon>202004271343333_AddLastConfirmed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\COVID19Location.cs" />
     <Compile Include="Models\COVID19Statistics.cs" />
-    <Compile Include="Models\StatisticsViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,6 +160,158 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.js.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Include="lib\bootstrap\js\dist\alert.js" />
+    <Content Include="lib\bootstrap\js\dist\alert.js.map" />
+    <Content Include="lib\bootstrap\js\dist\button.js" />
+    <Content Include="lib\bootstrap\js\dist\button.js.map" />
+    <Content Include="lib\bootstrap\js\dist\carousel.js" />
+    <Content Include="lib\bootstrap\js\dist\carousel.js.map" />
+    <Content Include="lib\bootstrap\js\dist\collapse.js" />
+    <Content Include="lib\bootstrap\js\dist\collapse.js.map" />
+    <Content Include="lib\bootstrap\js\dist\dropdown.js" />
+    <Content Include="lib\bootstrap\js\dist\dropdown.js.map" />
+    <Content Include="lib\bootstrap\js\dist\index.js" />
+    <Content Include="lib\bootstrap\js\dist\index.js.map" />
+    <Content Include="lib\bootstrap\js\dist\modal.js" />
+    <Content Include="lib\bootstrap\js\dist\modal.js.map" />
+    <Content Include="lib\bootstrap\js\dist\popover.js" />
+    <Content Include="lib\bootstrap\js\dist\popover.js.map" />
+    <Content Include="lib\bootstrap\js\dist\scrollspy.js" />
+    <Content Include="lib\bootstrap\js\dist\scrollspy.js.map" />
+    <Content Include="lib\bootstrap\js\dist\tab.js" />
+    <Content Include="lib\bootstrap\js\dist\tab.js.map" />
+    <Content Include="lib\bootstrap\js\dist\toast.js" />
+    <Content Include="lib\bootstrap\js\dist\toast.js.map" />
+    <Content Include="lib\bootstrap\js\dist\tooltip.js" />
+    <Content Include="lib\bootstrap\js\dist\tooltip.js.map" />
+    <Content Include="lib\bootstrap\js\dist\util.js" />
+    <Content Include="lib\bootstrap\js\dist\util.js.map" />
+    <Content Include="lib\bootstrap\js\src\alert.js" />
+    <Content Include="lib\bootstrap\js\src\button.js" />
+    <Content Include="lib\bootstrap\js\src\carousel.js" />
+    <Content Include="lib\bootstrap\js\src\collapse.js" />
+    <Content Include="lib\bootstrap\js\src\dropdown.js" />
+    <Content Include="lib\bootstrap\js\src\index.js" />
+    <Content Include="lib\bootstrap\js\src\modal.js" />
+    <Content Include="lib\bootstrap\js\src\popover.js" />
+    <Content Include="lib\bootstrap\js\src\scrollspy.js" />
+    <Content Include="lib\bootstrap\js\src\tab.js" />
+    <Content Include="lib\bootstrap\js\src\toast.js" />
+    <Content Include="lib\bootstrap\js\src\tools\sanitizer.js" />
+    <Content Include="lib\bootstrap\js\src\tooltip.js" />
+    <Content Include="lib\bootstrap\js\src\util.js" />
+    <Content Include="lib\bootstrap\LICENSE" />
+    <Content Include="lib\bootstrap\package.json" />
+    <Content Include="lib\bootstrap\README.md" />
+    <Content Include="lib\bootstrap\scss\bootstrap-grid.scss" />
+    <Content Include="lib\bootstrap\scss\bootstrap-reboot.scss" />
+    <Content Include="lib\bootstrap\scss\bootstrap.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_alert.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_background-variant.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_badge.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_border-radius.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_box-shadow.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_breakpoints.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_buttons.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_caret.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_clearfix.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_deprecate.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_float.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_forms.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_gradients.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_grid-framework.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_grid.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_hover.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_image.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_list-group.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_lists.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_nav-divider.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_pagination.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_reset-text.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_resize.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_screen-reader.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_size.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_table-row.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_text-emphasis.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_text-hide.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_text-truncate.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_transition.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_visibility.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_align.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_background.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_borders.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_clearfix.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_display.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_embed.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_flex.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_float.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_overflow.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_position.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_screenreaders.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_shadows.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_sizing.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_spacing.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_stretched-link.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_text.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_visibility.scss" />
+    <Content Include="lib\bootstrap\scss\vendor\_rfs.scss" />
+    <Content Include="lib\bootstrap\scss\_alert.scss" />
+    <Content Include="lib\bootstrap\scss\_badge.scss" />
+    <Content Include="lib\bootstrap\scss\_breadcrumb.scss" />
+    <Content Include="lib\bootstrap\scss\_button-group.scss" />
+    <Content Include="lib\bootstrap\scss\_buttons.scss" />
+    <Content Include="lib\bootstrap\scss\_card.scss" />
+    <Content Include="lib\bootstrap\scss\_carousel.scss" />
+    <Content Include="lib\bootstrap\scss\_close.scss" />
+    <Content Include="lib\bootstrap\scss\_code.scss" />
+    <Content Include="lib\bootstrap\scss\_custom-forms.scss" />
+    <Content Include="lib\bootstrap\scss\_dropdown.scss" />
+    <Content Include="lib\bootstrap\scss\_forms.scss" />
+    <Content Include="lib\bootstrap\scss\_functions.scss" />
+    <Content Include="lib\bootstrap\scss\_grid.scss" />
+    <Content Include="lib\bootstrap\scss\_images.scss" />
+    <Content Include="lib\bootstrap\scss\_input-group.scss" />
+    <Content Include="lib\bootstrap\scss\_jumbotron.scss" />
+    <Content Include="lib\bootstrap\scss\_list-group.scss" />
+    <Content Include="lib\bootstrap\scss\_media.scss" />
+    <Content Include="lib\bootstrap\scss\_mixins.scss" />
+    <Content Include="lib\bootstrap\scss\_modal.scss" />
+    <Content Include="lib\bootstrap\scss\_nav.scss" />
+    <Content Include="lib\bootstrap\scss\_navbar.scss" />
+    <Content Include="lib\bootstrap\scss\_pagination.scss" />
+    <Content Include="lib\bootstrap\scss\_popover.scss" />
+    <Content Include="lib\bootstrap\scss\_print.scss" />
+    <Content Include="lib\bootstrap\scss\_progress.scss" />
+    <Content Include="lib\bootstrap\scss\_reboot.scss" />
+    <Content Include="lib\bootstrap\scss\_root.scss" />
+    <Content Include="lib\bootstrap\scss\_spinners.scss" />
+    <Content Include="lib\bootstrap\scss\_tables.scss" />
+    <Content Include="lib\bootstrap\scss\_toasts.scss" />
+    <Content Include="lib\bootstrap\scss\_tooltip.scss" />
+    <Content Include="lib\bootstrap\scss\_transitions.scss" />
+    <Content Include="lib\bootstrap\scss\_type.scss" />
+    <Content Include="lib\bootstrap\scss\_utilities.scss" />
+    <Content Include="lib\bootstrap\scss\_variables.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -163,7 +325,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Home\COVID19Statistics.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -175,14 +338,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Visitors\Create.cshtml" />
-    <Content Include="Views\Visitors\Delete.cshtml" />
-    <Content Include="Views\Visitors\Details.cshtml" />
-    <Content Include="Views\Visitors\Edit.cshtml" />
-    <Content Include="Views\Visitors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -199,6 +354,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004041134523_InitialCreate.resx">
+      <DependentUpon>202004041134523_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271343333_AddLastConfirmed.resx">
+      <DependentUpon>202004271343333_AddLastConfirmed.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
