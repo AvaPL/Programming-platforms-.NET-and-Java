@@ -18,38 +18,39 @@ namespace DiseaseTracker.Controllers
         public async Task<ActionResult> Index()
         {
             COVID19Statistics statistics = await FetchCOVID19StatisticsAsync();
-            if (statistics != null)
-            {
-                viewModel.Statistics = statistics;
-                UpdateVisitor(statistics.Confirmed);
-            }
-
+            viewModel.Statistics = statistics ?? new COVID19Statistics();
+            UpdateVisitor(statistics);
             return View(viewModel);
         }
 
-        private void UpdateVisitor(long confirmed)
+        private void UpdateVisitor(COVID19Statistics statistics)
         {
             string ip = Server.HtmlEncode(Request.UserHostAddress);
             Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
             if (visitor == null)
-                AddNewVisitor(ip, confirmed);
+                AddNewVisitor(ip, statistics);
             else
-                EditExistingVisitor(visitor, confirmed);
+                EditExistingVisitor(visitor, statistics);
         }
 
-        private void EditExistingVisitor(Visitor visitor, long confirmed)
+        private void EditExistingVisitor(Visitor visitor, COVID19Statistics statistics)
         {
             viewModel.LastVisit = visitor.LastVisit;
-            viewModel.ConfirmedIncrease = confirmed - visitor.LastConfirmed;
-            visitor.UpdateVisitor(confirmed);
+            if (statistics != null)
+            {
+                viewModel.ConfirmedIncrease = statistics.Confirmed - visitor.LastConfirmed;
+                visitor.UpdateVisitor(statistics.Confirmed);
+            }
+
             viewModel.TotalVisits = visitor.TotalVisits;
             db.Entry(visitor).State = EntityState.Modified;
             db.SaveChanges();
         }
 
-        private void AddNewVisitor(string ip, long confirmed)
+        private void AddNewVisitor(string ip, COVID19Statistics statistics)
         {
-            Visitor visitor = new Visitor(ip, confirmed);
+            if (statistics == null) return;
+            Visitor visitor = new Visitor(ip, statistics.Confirmed);
             viewModel.LastVisit = visitor.LastVisit;
             viewModel.TotalVisits = visitor.TotalVisits;
             viewModel.ConfirmedIncrease = 0;
