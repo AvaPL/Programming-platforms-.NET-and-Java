@@ -4,12 +4,14 @@
     ViewData["Title"] = "COVID-19 Statistics";
 }
 
-<div class="text-center">
-    <h1 class="display-4">COVID-19 Statistics</h1>
-    <p>Confirmed: @Model.Statistics.Confirmed</p>
-    <p>Deaths: @Model.Statistics.Deaths</p>
-    <p>Recovered: @Model.Statistics.Recovered</p>
-    <p>You have already visited this page @Model.TotalVisits times.</p>
-    <p>Your last visit was @Model.LastVisit.</p>
-    <p>New confirmed cases since your last visit: @Model.ConfirmedIncrease.</p>
+<div class="text-center home mt-3">
+    <div class="home-center">
+        <h1 class="display-4 header">COVID-19 Statistics</h1>
+        <p class="text">Confirmed: @Model.Statistics.Confirmed</p>
+        <p class="text">Deaths: @Model.Statistics.Deaths</p>
+        <p class="text">Recovered: @Model.Statistics.Recovered</p>
+        <p class="text">You have already visited this page @Model.TotalVisits times.</p>
+        <p class="text">Your last visit was @Model.LastVisit.</p>
+        <p class="text">New confirmed cases since your last visit: @Model.ConfirmedIncrease.</p>
+    </div>
 </div>

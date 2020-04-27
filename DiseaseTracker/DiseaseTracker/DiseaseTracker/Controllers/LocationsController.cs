@@ -40,7 +40,7 @@ namespace DiseaseTracker.Controllers
                         Deaths = grouping.Sum(location => location.Latest.Deaths),
                         Recovered = grouping.Sum(location => location.Latest.Recovered)
                     }
-                }).ToList();
+                }).OrderBy(location => location.Country).ToList();
         }
     }
 }
