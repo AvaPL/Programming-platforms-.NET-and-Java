@@ -1,6 +1,5 @@
 .locations-list {
-    height: 100%;
-    width: 20%;
+    height: calc(100vh - 160px);
     overflow: auto;
 }
 
