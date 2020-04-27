@@ -20,10 +20,10 @@ namespace DiseaseTracker
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js"));
+                "~/lib/bootstrap/dist/js/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css",
+                "~/lib/bootstrap/dist/css/bootstrap.css",
                 "~/Content/site.css"));
         }
     }
