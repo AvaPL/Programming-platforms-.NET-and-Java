@@ -24,7 +24,7 @@ namespace DiseaseTracker
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/lib/bootstrap/dist/css/bootstrap.css",
-                "~/Content/site.css"));
+                "~/Content/Site.css"));
         }
     }
 }
