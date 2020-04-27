@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using DiseaseTracker.DAL;
 using DiseaseTracker.Models;
@@ -13,11 +14,10 @@ namespace DiseaseTracker.Controllers
     {
         private TrackerContext db = new TrackerContext();
         private StatisticsViewModel viewModel = new StatisticsViewModel();
-
-        public ActionResult Index()
+       
+        public async Task<ActionResult> Index()
         {
-            COVID19Statistics statistics = FetchCOVID19Statistics();
-            viewModel.Statistics = statistics;
+            viewModel.Statistics = await FetchCOVID19StatisticsAsync();
             UpdateVisitor();
             return View(viewModel);
         }
@@ -50,13 +50,13 @@ namespace DiseaseTracker.Controllers
             db.SaveChanges();
         }
 
-        public COVID19Statistics FetchCOVID19Statistics()
+        public async Task<COVID19Statistics> FetchCOVID19StatisticsAsync()
         {
             using HttpClient client = new HttpClient
                 {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
-            HttpResponseMessage response = client.GetAsync("latest").Result;
+            HttpResponseMessage response = await client.GetAsync("latest");
             if (!response.IsSuccessStatusCode) return null;
-            string json = response.Content.ReadAsStringAsync().Result;
+            string json = await response.Content.ReadAsStringAsync();
             return JObject.Parse(json)["latest"].ToObject<COVID19Statistics>();
         }
     }

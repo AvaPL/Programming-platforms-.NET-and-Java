@@ -131,7 +131,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\VisitorsController.cs" />
     <Compile Include="DAL\TrackerContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -175,11 +174,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Visitors\Create.cshtml" />
-    <Content Include="Views\Visitors\Delete.cshtml" />
-    <Content Include="Views\Visitors\Details.cshtml" />
-    <Content Include="Views\Visitors\Edit.cshtml" />
-    <Content Include="Views\Visitors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
