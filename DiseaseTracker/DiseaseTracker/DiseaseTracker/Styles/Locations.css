@@ -16,6 +16,19 @@
     overflow: auto;
 }
 
+.locations-list-group .list-group-item {
+    -webkit-filter: invert(100%);
+    mix-blend-mode: exclusion;
+}
+
+.locations-list-group .list-group-item.active {
+    background-color: #2d2d2d;
+}
+
+.locations-list-group .list-group-item:not(.active):hover {
+    background-color: #ebebeb;
+}
+
 .scrollbar {
     overflow-y: scroll;
 }
@@ -25,10 +38,10 @@
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background: #eee;
+    background: #07070a;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
     border-radius: 1rem;
-    background-color: #d7d7d7;
+    background-color: #1d1e21;
 }
