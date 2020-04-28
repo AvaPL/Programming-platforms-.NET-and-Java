@@ -10,8 +10,17 @@
         <p class="text">Confirmed: @Model.Statistics.Confirmed</p>
         <p class="text">Deaths: @Model.Statistics.Deaths</p>
         <p class="text">Recovered: @Model.Statistics.Recovered</p>
-        <p class="text">You have already visited this page @Model.TotalVisits times.</p>
-        <p class="text">Your last visit was @Model.LastVisit.</p>
-        <p class="text">New confirmed cases since your last visit: @Model.ConfirmedIncrease.</p>
+        @{
+            if (Model.TotalVisits == 1)
+            {
+                <p class="text">It's your first time visiting this page!</p>
+            }
+            else
+            {
+                <p class="text">New confirmed cases since your last visit: @Model.ConfirmedIncrease.</p>
+                <p class="text">You have already visited this page @Model.TotalVisits times.</p>
+                <p class="text">Your last visit was @Model.LastVisit.</p>
+            }
+        }
     </div>
 </div>
