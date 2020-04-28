@@ -1,8 +1,10 @@
 ﻿body {
     background-image: url(Images/Background.png);
+    background-repeat: no-repeat;
+    background-position: center;
     padding-top: 50px;
     padding-bottom: 20px;
-    background-size: 100%;
+    background-size: cover;
 }
 
 /* Set padding to keep content from hitting the edges */
