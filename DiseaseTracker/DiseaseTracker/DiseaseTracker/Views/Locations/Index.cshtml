@@ -1,6 +1,12 @@
 ﻿@using System.Text.RegularExpressions
 @model List<DiseaseTracker.Models.COVID19Location>
 
+
+@{
+    ViewData["Title"] = "COVID-19 Locations";
+    log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+}
+
 @functions {
 
     private string FormatCountryId(int i)
@@ -11,9 +17,6 @@
 
 }
 
-@{
-    ViewData["Title"] = "COVID-19 Locations";
-}
 
 <div class="row mt-3">
     <div class="col-4">
@@ -23,8 +26,10 @@
                 {
                     string active = i == 0 ? "active" : "";
                     string countryId = FormatCountryId(i);
+                    Log.Debug("Formatted " + Model[i].Country + " id as " + countryId );
                     <a class="list-group-item list-group-item-action list-group-item-light @active" id=@countryId"-list" data-toggle="list" href="#@countryId" role="tab" aria-controls="profile">@Model[i].Country</a>
                 }
+                @{ Log.Info("Showed list of locations"); }
             </div>
         </div>
     </div>
@@ -51,6 +56,7 @@
                     </div>
                 </div>
             }
+            @{ Log.Info("Created all locations statistics"); }
         </div>
     </div>
 </div>
