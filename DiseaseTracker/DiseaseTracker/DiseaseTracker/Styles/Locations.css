@@ -1,10 +1,5 @@
-.locations {
-    height: calc(100vh - 160px);
-    position: relative;
-    text-align: center;
-}
-
 .locations-center {
+    width: 80%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -12,7 +7,7 @@
 }
 
 .locations-list {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 159px);
     overflow: auto;
 }
 
@@ -44,4 +39,32 @@
 .scrollbar::-webkit-scrollbar-thumb {
     border-radius: 1rem;
     background-color: #1d1e21;
+}
+
+.locations-country-text {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 80px;
+    text-shadow: 5px 5px black;
+}
+
+.locations-confirmed {
+    color: #cd0000;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 3px 3px black;
+}
+
+.locations-deaths {
+    color: gray;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 3px 3px black;
+}
+
+.locations-recovered {
+    color: green;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 3px 3px black;
 }

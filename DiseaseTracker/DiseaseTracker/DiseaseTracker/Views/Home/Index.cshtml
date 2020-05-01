@@ -4,22 +4,39 @@
     ViewData["Title"] = "COVID-19 Statistics";
 }
 
-<div class="text-center home mt-3">
+<div class="home text-center mt-3">
     <div class="home-center">
         <h1 class="display-4 header">COVID-19 Statistics</h1>
-        <p class="text">Confirmed: @Model.Statistics.Confirmed</p>
-        <p class="text">Deaths: @Model.Statistics.Deaths</p>
-        <p class="text">Recovered: @Model.Statistics.Recovered</p>
+        <div class="row home-row">
+            <div class="col-sm">
+                <p class="locations-confirmed text-left">Confirmed:</p>
+                <p class="locations-deaths text-left">Deaths:</p>
+                <p class="locations-recovered text-left">Recovered:</p>
+            </div>
+            <div class="col-sm">
+                <p class="locations-confirmed text-right">@Model.Statistics.Confirmed</p>
+                <p class="locations-deaths text-right">@Model.Statistics.Deaths</p>
+                <p class="locations-recovered text-right">@Model.Statistics.Recovered</p>
+            </div>
+        </div>
         @{
             if (Model.TotalVisits == 1)
             {
-                <p class="text">It's your first time visiting this page!</p>
+                <div class="home-visit-text text-center">
+                    It's your first time visiting this page!
+                </div>
             }
             else
             {
-                <p class="text">New confirmed cases since your last visit: @Model.ConfirmedIncrease.</p>
-                <p class="text">You have already visited this page @Model.TotalVisits times.</p>
-                <p class="text">Your last visit was @Model.LastVisit.</p>
+                <div class="home-visit-text text-center">
+                    New confirmed cases since your last visit: @Model.ConfirmedIncrease.
+                </div>
+                <div class="home-visit-text text-center">
+                    You have already visited this page @Model.TotalVisits times,
+                </div>
+                <div class="home-visit-text text-center">
+                    last visit was @Model.LastVisit.
+                </div>
             }
         }
     </div>

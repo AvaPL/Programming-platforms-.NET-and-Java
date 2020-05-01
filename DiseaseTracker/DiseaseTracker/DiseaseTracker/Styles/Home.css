@@ -1,7 +1,5 @@
 ﻿.home {
-    height: calc(100vh - 160px);
-    position: relative;
-    text-align: center;
+    height: calc(100vh - 159px);
 }
 
 .home-center {
@@ -9,4 +7,38 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.home-row {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.home-confirmed {
+    color: #cd0000;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 3px 3px black;
+}
+
+.home-deaths {
+    color: gray;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 3px 3px black;
+}
+
+.home-recovered {
+    color: green;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 3px 3px black;
+}
+
+.home-visit-text {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: monospace;
+    text-shadow: 1px 1px black;
 }

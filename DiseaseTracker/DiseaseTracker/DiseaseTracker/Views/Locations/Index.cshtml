@@ -2,11 +2,13 @@
 @model List<DiseaseTracker.Models.COVID19Location>
 
 @functions {
+
     private string FormatCountryId(int i)
     {
         Regex regex = new Regex(@"[^a-zA-Z]");
         return regex.Replace(Model[i].Country, "");
     }
+
 }
 
 @{
@@ -27,21 +29,28 @@
         </div>
     </div>
 
-    <div class="col-8">
-        <div class="locations">
-            <div class="tab-content locations-center" id="nav-tabContent">
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    string showActive = i == 0 ? "show active" : "";
-                    string countryId = FormatCountryId(i);
-                    <div class="tab-pane fade @showActive" id=@countryId role="tabpanel" aria-labelledby=@countryId"-list">
-                        <p class="text">Country: @Model[i].Country</p>
-                        <p class="text">Confirmed: @Model[i].Latest.Confirmed</p>
-                        <p class="text">Deaths: @Model[i].Latest.Deaths</p>
-                        <p class="text">Recovered: @Model[i].Latest.Recovered</p>
+    <div class="col-sm">
+        <div class="tab-content locations-center" id="nav-tabContent">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                string showActive = i == 0 ? "show active" : "";
+                string countryId = FormatCountryId(i);
+                <div class="tab-pane fade @showActive" id=@countryId role="tabpanel" aria-labelledby=@countryId"-list">
+                    <h1 class="locations-country-text text-center">@Model[i].Country</h1>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p class="locations-confirmed text-left">Confirmed:</p>
+                            <p class="locations-deaths text-left">Deaths:</p>
+                            <p class="locations-recovered text-left">Recovered:</p>
+                        </div>
+                        <div class="col-sm">
+                            <p class="locations-confirmed text-right">@Model[i].Latest.Confirmed</p>
+                            <p class="locations-deaths text-right">@Model[i].Latest.Deaths</p>
+                            <p class="locations-recovered text-right">@Model[i].Latest.Recovered</p>
+                        </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
 </div>
