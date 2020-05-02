@@ -363,6 +363,8 @@
     <Content Include="Views\Home\_IndexDesktop.cshtml" />
     <Content Include="Views\Home\_IndexMobile.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\Locations\_IndexDesktop.cshtml" />
+    <Content Include="Views\Locations\_IndexMobile.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
