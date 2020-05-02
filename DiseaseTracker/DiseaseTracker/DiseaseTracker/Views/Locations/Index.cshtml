@@ -2,9 +2,5 @@
 
 @{
     ViewData["Title"] = "COVID-19 Locations";
-}
-
-
-@{
     Html.RenderPartial(Request.Browser.IsMobileDevice ? "_IndexMobile" : "_IndexDesktop", Model);
 }
