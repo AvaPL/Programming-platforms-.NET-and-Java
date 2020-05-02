@@ -344,6 +344,7 @@
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\PublishProfiles\DiseaseTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -359,6 +360,8 @@
     <Content Include="Styles\Locations.css" />
     <Content Include="Styles\Text.css" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_IndexDesktop.cshtml" />
+    <Content Include="Views\Home\_IndexMobile.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Locations\_IndexDesktop.cshtml" />
     <Content Include="Views\Locations\_IndexMobile.cshtml" />

@@ -2,45 +2,5 @@
 
 @{
     ViewData["Title"] = "COVID-19 Statistics";
-    log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    Html.RenderPartial(Request.Browser.IsMobileDevice ? "_IndexMobile" : "_IndexDesktop", Model);
 }
-
-<div class="home text-center mt-3">
-    <div class="home-center">
-        <h1 class="display-4 header">COVID-19 Statistics</h1>
-        <div class="row home-row">
-            <div class="col-sm">
-                <p class="home-confirmed text-left">Confirmed:</p>
-                <p class="home-deaths text-left">Deaths:</p>
-                <p class="home-recovered text-left">Recovered:</p>
-            </div>
-            <div class="col-sm">
-                <p class="home-confirmed text-right">@Model.Statistics.Confirmed</p>
-                <p class="home-deaths text-right">@Model.Statistics.Deaths</p>
-                <p class="home-recovered text-right">@Model.Statistics.Recovered</p>
-            </div>
-        </div>
-        @{
-            if (Model.TotalVisits == 1)
-            {
-                <div class="home-visit-text text-center">
-                    It's your first time visiting this page!
-                </div>
-                Log.Info("Showed message for first time visitors");
-            }
-            else
-            {
-                <div class="home-visit-text text-center">
-                    New confirmed cases since your last visit: @Model.ConfirmedIncrease.
-                </div>
-                <div class="home-visit-text text-center">
-                    You have already visited this page @Model.TotalVisits times,
-                </div>
-                <div class="home-visit-text text-center">
-                    last visit was @Model.LastVisit.
-                </div>
-                Log.Info("Showed messages for existing visitors");
-            }
-        }
-    </div>
-</div>

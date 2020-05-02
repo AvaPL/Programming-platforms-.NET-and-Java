@@ -42,3 +42,42 @@
     font-family: monospace;
     text-shadow: 1px 1px black;
 }
+
+
+/*classes for mobile devices*/
+
+.home-center-mobile {
+    height: calc(100vh - 159px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-confirmed-mobile {
+    color: #cd0000;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 1px 1px black;
+}
+
+.home-deaths-mobile {
+    color: gray;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 1px 1px black;
+}
+
+.home-recovered-mobile {
+    color: green;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 1px 1px black;
+}
+
+.home-visit-text-mobile {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: monospace;
+    text-shadow: 1px 1px black;
+}
