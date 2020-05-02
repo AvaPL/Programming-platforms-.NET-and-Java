@@ -32,11 +32,7 @@ namespace DiseaseTrackerTests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent(
-                        // 'country':'Afghanistan'
-                        // 'latest':{'confirmed':2335,'deaths':68,'recovered':30}
-                        // 'country':'Albania'
-                        // 'latest':{'confirmed':782,'deaths':31,'recovered':15}
-                        "{'latest':{'confirmed':3343777,'deaths':238650,'recovered':0}}")
+                        "{'latest':{'confirmed':3343777,'deaths':238650,'recovered':1542}}")
                 }).Verifiable();
             HttpClient httpClient = new HttpClient(handlerMock.Object)
             {
@@ -65,6 +61,16 @@ namespace DiseaseTrackerTests
         {
             ViewResult result = (ViewResult) controller.Index().Result;
             Assert.AreEqual("Index", result.ViewName);
+        }
+
+        [Test]
+        public void ShouldContainCorrectStatistics()
+        {
+            ViewResult result = (ViewResult) controller.Index().Result;
+            HomeViewModel homeViewModel = (HomeViewModel) result.ViewData.Model;
+            Assert.AreEqual(3343777, homeViewModel.Statistics.Confirmed);
+            Assert.AreEqual(238650, homeViewModel.Statistics.Deaths);
+            Assert.AreEqual(1542, homeViewModel.Statistics.Recovered);
         }
     }
 }
