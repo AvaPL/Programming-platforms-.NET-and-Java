@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 using DiseaseTracker.DAL;
 using Unity;
@@ -21,8 +22,17 @@ namespace DiseaseTracker
             container.RegisterFactory<HttpClient>(x => new HttpClient
                     {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")},
                 new HierarchicalLifetimeManager());
+            container.RegisterFactory<IIpProvider>(x => new ServerIpProvider());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+        }
+        
+        private class ServerIpProvider : IIpProvider
+        {
+            public string GetIp(HttpServerUtilityBase server, HttpRequestBase request)
+            {
+                return server.HtmlEncode(request.UserHostAddress);
+            }
         }
     }
 }

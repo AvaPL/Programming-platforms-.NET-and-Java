@@ -10,18 +10,21 @@ using Newtonsoft.Json.Linq;
 
 namespace DiseaseTracker.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller 
     {
-        private HomeViewModel viewModel = new HomeViewModel();
+        private readonly HomeViewModel viewModel = new HomeViewModel();
         private readonly TrackerContext db;
-        private readonly HttpClient client;
+        private HttpClient client;
+        private IIpProvider ipProvider;
         private static readonly log4net.ILog Log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public HomeController(TrackerContext db, HttpClient client)
+
+        public HomeController(TrackerContext db, HttpClient client, IIpProvider ipProvider)
         {
             this.db = db;
             this.client = client;
+            this.ipProvider = ipProvider;
         }
 
         public async Task<ActionResult> Index()
@@ -38,7 +41,7 @@ namespace DiseaseTracker.Controllers
 
         private void UpdateVisitor(COVID19Statistics statistics)
         {
-            string ip = Server.HtmlEncode(Request.UserHostAddress);
+            string ip = ipProvider.GetIp(Server, Request);
             Log.Debug("Requested user ip");
             Visitor visitor = db.Visitors.SingleOrDefault(v => v.Ip == ip);
             if (visitor == null)
@@ -53,6 +56,8 @@ namespace DiseaseTracker.Controllers
             }
             Log.Info("Updated visitor with ip" + ip);
         }
+        
+        
 
         private void EditExistingVisitor(Visitor visitor, COVID19Statistics statistics)
             {
@@ -83,9 +88,9 @@ namespace DiseaseTracker.Controllers
                 db.SaveChanges();
             }
 
-            public async Task<COVID19Statistics> FetchCOVID19StatisticsAsync()
+            private async Task<COVID19Statistics> FetchCOVID19StatisticsAsync()
             {
-                HttpResponseMessage response = await client.GetAsync("latest");
+               HttpResponseMessage response = await client.GetAsync("latest");
                 if (!response.IsSuccessStatusCode)
                 {
                     Log.Warn("Failed to fetch latest statistics");

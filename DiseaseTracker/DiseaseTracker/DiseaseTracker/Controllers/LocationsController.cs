@@ -11,6 +11,9 @@ namespace DiseaseTracker.Controllers
 {
     public class LocationsController : Controller
     {
+        private static readonly log4net.ILog Log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private HttpClient client;
 
         public LocationsController(HttpClient client)
@@ -18,10 +21,6 @@ namespace DiseaseTracker.Controllers
             this.client = client;
         }
 
-        private static readonly log4net.ILog Log =
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        
         public async Task<ActionResult> Index()
         {
             List<COVID19Location> locations = await FetchCOVID19LocationsAsync();
@@ -36,7 +35,7 @@ namespace DiseaseTracker.Controllers
             return View("Index", locations);
         }
 
-        public async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()
+        private async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()
         {
             HttpResponseMessage response = await client.GetAsync("locations");
             if (!response.IsSuccessStatusCode)
