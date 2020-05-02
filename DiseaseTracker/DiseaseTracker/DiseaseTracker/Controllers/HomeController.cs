@@ -14,8 +14,8 @@ namespace DiseaseTracker.Controllers
     {
         private readonly HomeViewModel viewModel = new HomeViewModel();
         private readonly TrackerContext db;
-        private HttpClient client;
-        private IIpProvider ipProvider;
+        private readonly HttpClient client;
+        private readonly IIpProvider ipProvider;
         private static readonly log4net.ILog Log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

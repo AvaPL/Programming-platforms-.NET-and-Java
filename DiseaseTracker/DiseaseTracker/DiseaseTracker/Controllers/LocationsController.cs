@@ -14,7 +14,7 @@ namespace DiseaseTracker.Controllers
         private static readonly log4net.ILog Log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private HttpClient client;
+        private readonly HttpClient client;
 
         public LocationsController(HttpClient client)
         {
