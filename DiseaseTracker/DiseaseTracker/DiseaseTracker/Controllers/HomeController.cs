@@ -12,11 +12,17 @@ namespace DiseaseTracker.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly TrackerContext db = new TrackerContext();
-        private readonly HomeViewModel viewModel = new HomeViewModel();
-
+        private HomeViewModel viewModel = new HomeViewModel();
+        private readonly TrackerContext db;
+        private readonly HttpClient client;
         private static readonly log4net.ILog Log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        public HomeController(TrackerContext db, HttpClient client)
+        {
+            this.db = db;
+            this.client = client;
+        }
 
         public async Task<ActionResult> Index()
         {
@@ -27,7 +33,7 @@ namespace DiseaseTracker.Controllers
             else Log.Info("Fetched latest statistics");
             viewModel.Statistics = statistics ?? new COVID19Statistics();
             UpdateVisitor(statistics);
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
         private void UpdateVisitor(COVID19Statistics statistics)
@@ -79,8 +85,6 @@ namespace DiseaseTracker.Controllers
 
             public async Task<COVID19Statistics> FetchCOVID19StatisticsAsync()
             {
-                using HttpClient client = new HttpClient
-                    {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
                 HttpResponseMessage response = await client.GetAsync("latest");
                 if (!response.IsSuccessStatusCode)
                 {

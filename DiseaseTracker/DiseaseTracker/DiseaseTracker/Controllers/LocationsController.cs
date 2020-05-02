@@ -11,6 +11,13 @@ namespace DiseaseTracker.Controllers
 {
     public class LocationsController : Controller
     {
+        private HttpClient client;
+
+        public LocationsController(HttpClient client)
+        {
+            this.client = client;
+        }
+
         private static readonly log4net.ILog Log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -26,13 +33,11 @@ namespace DiseaseTracker.Controllers
             else
                 Log.Info("Fetched location statistics");
 
-            return View(locations);
+            return View("Index", locations);
         }
 
         public async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()
         {
-            using HttpClient client = new HttpClient
-                {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
             HttpResponseMessage response = await client.GetAsync("locations");
             if (!response.IsSuccessStatusCode)
             {
