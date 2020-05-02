@@ -5,6 +5,6 @@ namespace DiseaseTracker.DAL
 {
     public class TrackerContext : DbContext
     {
-        public DbSet<Visitor> Visitors { get; set; }
+        public virtual DbSet<Visitor> Visitors { get; set; }
     }
 }

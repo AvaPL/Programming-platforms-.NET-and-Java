@@ -11,26 +11,48 @@ namespace DiseaseTracker.Controllers
 {
     public class LocationsController : Controller
     {
-        public async Task<ActionResult> Index()
+        private static readonly log4net.ILog Log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private readonly HttpClient client;
+
+        public LocationsController(HttpClient client)
         {
-            List<COVID19Location> locations = await FetchCOVID19LocationsAsync() ?? new List<COVID19Location>();
-            return View(locations);
+            this.client = client;
         }
 
-        public async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()
+        public async Task<ActionResult> Index()
         {
-            using HttpClient client = new HttpClient
-                {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
+            List<COVID19Location> locations = await FetchCOVID19LocationsAsync();
+            if (locations == null)
+            {
+                Log.Warn("Fetched empty locations statistics");
+                locations = new List<COVID19Location>();
+            }
+            else
+                Log.Info("Fetched location statistics");
+
+            return View("Index", locations);
+        }
+
+        private async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()
+        {
             HttpResponseMessage response = await client.GetAsync("locations");
-            if (!response.IsSuccessStatusCode) return null;
+            if (!response.IsSuccessStatusCode)
+            {
+                Log.Warn("Failed to fetch location statistics");
+                return null;
+            }
             string json = await response.Content.ReadAsStringAsync();
+            Log.Debug("Converted fetched information to string");
             return FormatCOVID19Locations(json);
         }
 
         private static List<COVID19Location> FormatCOVID19Locations(string json)
         {
             List<COVID19Location> locations = JObject.Parse(json)["locations"].ToObject<List<COVID19Location>>();
-            return locations.GroupBy(location => location.Country).Select(grouping =>
+            Log.Debug("Parsed locations list");
+            List<COVID19Location> aggregatedLocations= locations.GroupBy(location => location.Country).Select(grouping =>
                 new COVID19Location
                 {
                     Country = grouping.Key,
@@ -41,6 +63,8 @@ namespace DiseaseTracker.Controllers
                         Recovered = grouping.Sum(location => location.Latest.Recovered)
                     }
                 }).OrderBy(location => location.Country).ToList();
+            Log.Debug("Calculated latest statistics for each location");
+            return aggregatedLocations;
         }
     }
 }
