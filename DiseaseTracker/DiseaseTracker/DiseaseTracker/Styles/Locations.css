@@ -74,6 +74,13 @@
     overflow: auto;
 }
 
+.locations-country-text-mobile {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 70px;
+    text-shadow: 5px 5px black;
+}
+
 .locations-confirmed-mobile {
     color: #cd0000;
     font-weight: bold;
