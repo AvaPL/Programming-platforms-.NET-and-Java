@@ -1,0 +1,45 @@
+﻿@model DiseaseTracker.Models.HomeViewModel
+
+@{
+    log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+}
+
+<div class="home-center-mobile">
+    <div>
+        <h1 class=" header-mobile">COVID-19 Statistics</h1>
+        <div class="row home-row">
+            <div class="col">
+                <p class="home-confirmed-mobile text-left">Confirmed:</p>
+                <p class="home-deaths-mobile text-left">Deaths:</p>
+                <p class="home-recovered-mobile text-left">Recovered:</p>
+            </div>
+            <div class="col">
+                <p class="home-confirmed-mobile text-right">@Model.Statistics.Confirmed</p>
+                <p class="home-deaths-mobile text-right">@Model.Statistics.Deaths</p>
+                <p class="home-recovered-mobile text-right">@Model.Statistics.Recovered</p>
+            </div>
+        </div>
+        @{
+            if (Model.TotalVisits == 1)
+            {
+                <div class="home-visit-text-mobile text-center">
+                    It's your first time visiting this page!
+                </div>
+                Log.Info("Showed message for first time visitors");
+            }
+            else
+            {
+                <div class="home-visit-text-mobile text-center">
+                    New confirmed cases since your last visit: @Model.ConfirmedIncrease.
+                </div>
+                <div class="home-visit-text-mobile text-center">
+                    You have already visited this page @Model.TotalVisits times,
+                </div>
+                <div class="home-visit-text-mobile text-center">
+                    last visit was @Model.LastVisit.
+                </div>
+                Log.Info("Showed messages for existing visitors");
+            }
+        }
+    </div>
+</div>
