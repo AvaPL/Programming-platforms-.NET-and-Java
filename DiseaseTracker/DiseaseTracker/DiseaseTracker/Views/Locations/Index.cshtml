@@ -1,62 +1,6 @@
-﻿@using System.Text.RegularExpressions
-@model List<DiseaseTracker.Models.COVID19Location>
-
+﻿@model List<DiseaseTracker.Models.COVID19Location>
 
 @{
     ViewData["Title"] = "COVID-19 Locations";
-    log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    Html.RenderPartial(Request.Browser.IsMobileDevice ? "_IndexMobile" : "_IndexDesktop", Model);
 }
-
-@functions {
-
-    private string FormatCountryId(int i)
-    {
-        Regex regex = new Regex(@"[^a-zA-Z]");
-        return regex.Replace(Model[i].Country, "");
-    }
-
-}
-
-
-<div class="row mt-3">
-    <div class="col-4">
-        <div class="locations-list scrollbar">
-            <div class="list-group locations-list-group" id="list-tab" role="tablist">
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    string active = i == 0 ? "active" : "";
-                    string countryId = FormatCountryId(i);
-                    Log.Debug("Formatted " + Model[i].Country + " id as " + countryId );
-                    <a class="list-group-item list-group-item-action list-group-item-light @active" id=@countryId"-list" data-toggle="list" href="#@countryId" role="tab" aria-controls="profile">@Model[i].Country</a>
-                }
-                @{ Log.Info("Showed list of locations"); }
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm">
-        <div class="tab-content locations-center" id="nav-tabContent">
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                string showActive = i == 0 ? "show active" : "";
-                string countryId = FormatCountryId(i);
-                <div class="tab-pane fade @showActive" id=@countryId role="tabpanel" aria-labelledby=@countryId"-list">
-                    <h1 class="locations-country-text text-center">@Model[i].Country</h1>
-                    <div class="row">
-                        <div class="col-sm">
-                            <p class="locations-confirmed text-left">Confirmed:</p>
-                            <p class="locations-deaths text-left">Deaths:</p>
-                            <p class="locations-recovered text-left">Recovered:</p>
-                        </div>
-                        <div class="col-sm">
-                            <p class="locations-confirmed text-right">@Model[i].Latest.Confirmed</p>
-                            <p class="locations-deaths text-right">@Model[i].Latest.Deaths</p>
-                            <p class="locations-recovered text-right">@Model[i].Latest.Recovered</p>
-                        </div>
-                    </div>
-                </div>
-            }
-            @{ Log.Info("Created all locations statistics"); }
-        </div>
-    </div>
-</div>

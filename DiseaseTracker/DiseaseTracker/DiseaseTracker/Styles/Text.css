@@ -10,3 +10,17 @@
     font-weight: bold;
     font-size: 20px;
 }
+
+.header-mobile {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 60px;
+    text-shadow: 2px 2px 1px #373737;
+    text-align: center;
+}
+
+.text-mobile {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 10px;
+}
