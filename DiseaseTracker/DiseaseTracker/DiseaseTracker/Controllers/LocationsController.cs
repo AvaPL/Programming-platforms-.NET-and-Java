@@ -21,7 +21,7 @@ namespace DiseaseTracker.Controllers
         public async Task<ActionResult> Index()
         {
             List<COVID19Location> locations = await FetchCOVID19LocationsAsync() ?? new List<COVID19Location>();
-            return View(locations);
+            return View("Index", locations);
         }
 
         public async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()

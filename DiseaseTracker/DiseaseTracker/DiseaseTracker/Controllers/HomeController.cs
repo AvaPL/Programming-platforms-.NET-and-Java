@@ -27,7 +27,7 @@ namespace DiseaseTracker.Controllers
             COVID19Statistics statistics = await FetchCOVID19StatisticsAsync();
             viewModel.Statistics = statistics ?? new COVID19Statistics();
             UpdateVisitor(statistics);
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
         private void UpdateVisitor(COVID19Statistics statistics)
