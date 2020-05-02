@@ -47,7 +47,7 @@
 /*classes for mobile devices*/
 
 .home-center-mobile {
-    height: calc(100vh - 159px);
+    height: calc(100vh - 131px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,21 +56,21 @@
 .home-confirmed-mobile {
     color: #cd0000;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     text-shadow: 1px 1px black;
 }
 
 .home-deaths-mobile {
     color: gray;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     text-shadow: 1px 1px black;
 }
 
 .home-recovered-mobile {
     color: green;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     text-shadow: 1px 1px black;
 }
 

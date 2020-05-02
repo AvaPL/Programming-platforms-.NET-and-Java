@@ -70,7 +70,7 @@
 }
 
 .locations-list-mobile {
-    height: calc(100vh - 483px);
+    height: calc(100vh - 455px);
     overflow: auto;
 }
 
