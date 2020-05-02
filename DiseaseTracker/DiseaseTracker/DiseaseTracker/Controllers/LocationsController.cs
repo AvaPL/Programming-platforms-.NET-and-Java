@@ -11,6 +11,13 @@ namespace DiseaseTracker.Controllers
 {
     public class LocationsController : Controller
     {
+        private HttpClient client;
+
+        public LocationsController(HttpClient client)
+        {
+            this.client = client;
+        }
+
         public async Task<ActionResult> Index()
         {
             List<COVID19Location> locations = await FetchCOVID19LocationsAsync() ?? new List<COVID19Location>();
@@ -19,8 +26,6 @@ namespace DiseaseTracker.Controllers
 
         public async Task<List<COVID19Location>> FetchCOVID19LocationsAsync()
         {
-            using HttpClient client = new HttpClient
-                {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
             HttpResponseMessage response = await client.GetAsync("locations");
             if (!response.IsSuccessStatusCode) return null;
             string json = await response.Content.ReadAsStringAsync();

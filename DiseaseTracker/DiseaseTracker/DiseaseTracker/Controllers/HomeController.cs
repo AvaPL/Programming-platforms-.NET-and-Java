@@ -12,8 +12,15 @@ namespace DiseaseTracker.Controllers
 {
     public class HomeController : Controller
     {
-        private TrackerContext db = new TrackerContext();
         private HomeViewModel viewModel = new HomeViewModel();
+        private TrackerContext db;
+        private HttpClient client;
+
+        public HomeController(TrackerContext db, HttpClient client)
+        {
+            this.db = db;
+            this.client = client;
+        }
 
         public async Task<ActionResult> Index()
         {
@@ -60,8 +67,6 @@ namespace DiseaseTracker.Controllers
 
         public async Task<COVID19Statistics> FetchCOVID19StatisticsAsync()
         {
-            using HttpClient client = new HttpClient
-                {BaseAddress = new Uri("https://coronavirus-tracker-api.herokuapp.com/v2/")};
             HttpResponseMessage response = await client.GetAsync("latest");
             if (!response.IsSuccessStatusCode) return null;
             string json = await response.Content.ReadAsStringAsync();
