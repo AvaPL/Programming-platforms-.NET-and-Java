@@ -22,6 +22,12 @@ namespace DiseaseTrackerTests
         [SetUp]
         public void SetUp()
         {
+            HttpClient httpClient = MockHttpClient();
+            controller = new LocationsController(httpClient);
+        }
+
+        private static HttpClient MockHttpClient()
+        {
             Mock<HttpMessageHandler> handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             handlerMock.Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
@@ -39,7 +45,7 @@ namespace DiseaseTrackerTests
             {
                 BaseAddress = new Uri("http://test.com/"),
             };
-            controller = new LocationsController(httpClient);
+            return httpClient;
         }
 
         [Test]
