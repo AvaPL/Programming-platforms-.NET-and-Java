@@ -84,20 +84,20 @@
 .locations-confirmed-mobile {
     color: #cd0000;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 30px;
     text-shadow: 3px 3px black;
 }
 
 .locations-deaths-mobile {
     color: gray;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 30px;
     text-shadow: 3px 3px black;
 }
 
 .locations-recovered-mobile {
     color: green;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 30px;
     text-shadow: 3px 3px black;
 }
